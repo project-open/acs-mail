@@ -92,7 +92,7 @@ begin
 		null,			-- p_header_to
 		null,			-- p_content_item_id
 		''acs_mail_body'',	-- p_object_type
-		now(),			-- p_creation_date
+		now() ::date,		-- p_creation_date
 		v_creation_user,	-- p_creation_user
 		null,			-- p_creation_ip
 		null			-- p_context_id
