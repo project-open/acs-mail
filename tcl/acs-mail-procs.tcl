@@ -394,6 +394,7 @@ ad_proc -private acs_mail_process_queue {
 } {
     Process the outgoing message queue.
 } {
+    ns_log NOTICE "acs_mail_process_queue: entering ... "
     db_foreach acs_message_send {
 	select	message_id, 
 		envelope_from,
@@ -412,9 +413,10 @@ ad_proc -private acs_mail_process_queue {
         if [catch {
             eval ns_sendmail $to_send_2
         } errMsg] {
-            ns_log "Notice" "acs_mail_process_queue: failure: $errMsg"
+            ns_log NOTICE "acs_mail_process_queue: failure: $errMsg"
         } else {
             db_dml acs_message_delete_sent {
+            ns_log NOTICE "acs_mail_process_queue: Deleting from acs_mail_queue_outgoing message_id: $message_id ... "
                 delete from acs_mail_queue_outgoing
                     where message_id = :message_id
                         and envelope_from = :envelope_from
